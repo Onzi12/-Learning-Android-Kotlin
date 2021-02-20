@@ -33,16 +33,16 @@ class LoginActivity : AppCompatActivity() {
         val username: String = this.textUsernameLayout.editText?.text.toString()
         val password: String = this.textPasswordLayout.editText?.text.toString()
 
-        // UX: You can put a subtle message, if you set the error on the input. The user will see the error only if he's focused on the view.
-        if(username.isEmpty()) {
-            this.textUsernameLayout.error = "Please fill the username"
-        }
-        // UX: the user will see the error on the activity. (the spacing between the views will slightly move)
-        else if(password.isEmpty()) {
-            this.textPasswordLayout.error = "Please fill the password"
+        if(username.isEmpty() || password.isEmpty()) {
+            // UX: the user will see the error on the activity. (the spacing between the views will slightly move)
+            // UX: You can put a subtle message, if you set the error on the input. The user will see the error only if he's focused on the view.
+            if (username.isEmpty())
+                this.textUsernameLayout.error = "Please fill the username"
+            if (password.isEmpty())
+                this.textPasswordLayout.error = "Please fill the password"
         }
         else if (username != "admin" && password != "admin")
-            showErrorDialog()
+            onWrongCredentials()
         else
             performLogin()
     }
@@ -63,19 +63,11 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun showErrorDialog() {
+    private fun onWrongCredentials() {
         AlertDialog.Builder(this)
             .setTitle("Login Failed")
             .setMessage("Username or password is incorrect. Please try Again.")
             .setPositiveButton("OK") { dialog, which -> if(which == DialogInterface.BUTTON_POSITIVE) dialog.dismiss() }
             .show()
-    }
-
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        // something.
     }
 }
