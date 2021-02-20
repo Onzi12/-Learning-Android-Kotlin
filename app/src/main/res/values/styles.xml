@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!--colorPrimary: Used to paint most of the main components. Usually a natural color -->
+        <item name="colorPrimary">@color/blue700</item>
+
+        <!--colorSecondary: Used to paint other parts of the main components. Usually a bright color -->
+        <item name="colorSecondary">@color/orange500</item>
+
+        <!--colorPrimaryDark: Used to paint system bar. Usually a darker version of colorPrimary -->
+        <item name="colorPrimaryDark">@color/blue800</item>
+    </style>
+</resources>
