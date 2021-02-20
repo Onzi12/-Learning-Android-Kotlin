@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailsActivity">
+
+    <!--  0dp (=match constraint) + top & end constraints equals to stretch -->
+    <!-- the default scaleType for an image is center. -->
+    <ImageView
+        android:id="@+id/imageMain"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/sydney_image" />
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintTop_toTopOf="@id/imageMain"
+        app:layout_constraintStart_toStartOf="@id/imageMain"
+        app:srcCompat="@drawable/ic_arrow_back"
+        />
+    <TextView
+        android:id="@+id/textDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:textColor="@color/white"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        app:layout_constraintBottom_toBottomOf="@id/imageMain"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="August 2, 2019" />
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+        android:textColor="@color/white"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/textDate"
+        app:layout_constraintStart_toStartOf="@id/imageMain"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="G'day from Sydney" />
+
+    <ImageView
+        android:id="@+id/imageAvatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageMain"
+        app:srcCompat="@drawable/avatar" />
+
+    <TextView
+        android:id="@+id/textAuthor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        app:layout_constraintTop_toTopOf="@id/imageAvatar"
+        app:layout_constraintStart_toEndOf="@id/imageAvatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Grayson Wells" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="?android:ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:rating="4.4"
+        android:stepSize="0.1"
+        app:layout_constraintStart_toEndOf="@id/imageAvatar"
+        app:layout_constraintBottom_toBottomOf="@id/imageAvatar"
+        app:layout_constraintTop_toBottomOf="@id/textAuthor" />
+
+    <TextView
+        android:id="@+id/ratingText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        app:layout_constraintStart_toEndOf="@id/ratingBar"
+        app:layout_constraintBottom_toBottomOf="@id/ratingBar"
+        app:layout_constraintTop_toTopOf="@id/ratingBar"
+        tools:text="4.4" />
+
+    <TextView
+        android:id="@+id/textViews"
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/grey500"
+        app:layout_constraintStart_toEndOf="@+id/ratingText"
+        app:layout_constraintBottom_toBottomOf="@id/ratingBar"
+        app:layout_constraintTop_toTopOf="@id/ratingBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="(2687 views)" />
+
+    <TextView
+        android:id="@+id/textDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageAvatar"
+        tools:text="Australia is one of the most popular travel destinations in the world." />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

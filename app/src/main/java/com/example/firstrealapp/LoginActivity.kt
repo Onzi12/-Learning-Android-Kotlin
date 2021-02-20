@@ -1,6 +1,5 @@
 package com.example.firstrealapp
 
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -9,14 +8,16 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import com.example.firstrealapp.databinding.ActivityLoginBinding
 import com.google.android.material.textfield.TextInputLayout
-import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
     // private lateinit var blogPreferences: BlogPreferences
     // Lazy example. Lazy properties are initialized on the first usage (here, it's in the onCreate method)
     private val blogPreferences: BlogPreferences by lazy { BlogPreferences(this) }
+
+    private lateinit var binding : ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,13 +28,14 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        loginButton.setOnClickListener { onLoginClicked() }
+        binding.loginButton.setOnClickListener { onLoginClicked() }
 
         // two ways to achieve the same
-        textUsernameLayout.editText?.addTextChangedListener { onTextChanged(textUsernameLayout) }
-        passwordInput.addTextChangedListener{ onTextChanged(textPasswordLayout) }
+        binding.textUsernameLayout.editText?.addTextChangedListener { onTextChanged(binding.textUsernameLayout) }
+        binding.passwordInput.addTextChangedListener{ onTextChanged(binding.textPasswordLayout) }
     }
 
 
@@ -45,16 +47,16 @@ class LoginActivity : AppCompatActivity() {
 
     private fun onLoginClicked() {
 
-        val username: String = this.textUsernameLayout.editText?.text.toString()
-        val password: String = this.textPasswordLayout.editText?.text.toString()
+        val username: String = binding.textUsernameLayout.editText?.text.toString()
+        val password: String = binding.textPasswordLayout.editText?.text.toString()
 
         if(username.isEmpty() || password.isEmpty()) {
             // UX: the user will see the error on the activity. (the spacing between the views will slightly move)
             // UX: You can put a subtle message, if you set the error on the input. The user will see the error only if he's focused on the view.
             if (username.isEmpty())
-                this.textUsernameLayout.error = "Please fill the username"
+                binding.textUsernameLayout.error = "Please fill the username"
             if (password.isEmpty())
-                this.textPasswordLayout.error = "Please fill the password"
+                binding.textPasswordLayout.error = "Please fill the password"
         }
         else if (username != "admin" && password != "admin")
             onWrongCredentials()
@@ -65,16 +67,16 @@ class LoginActivity : AppCompatActivity() {
     private fun performLogin() {
         blogPreferences.setLoginState(true)
 
-        textUsernameLayout.isEnabled = false
-        textPasswordLayout.isEnabled = false
-        loginButton.visibility = View.INVISIBLE
-        loadingProgress.visibility = View.VISIBLE
+        binding.textUsernameLayout.isEnabled = false
+        binding.textPasswordLayout.isEnabled = false
+        binding.loginButton.visibility = View.INVISIBLE
+        binding.loadingProgress.visibility = View.VISIBLE
 
         Handler(mainLooper).postDelayed({ startMainActivity() }, 2000)
     }
 
     private fun startMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, DetailsActivity::class.java)
         startActivity(intent)
         finish()
     }
