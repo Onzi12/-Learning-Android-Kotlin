@@ -1,5 +1,6 @@
 package com.example.firstrealapp
 
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -12,8 +13,20 @@ import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
+
+    // private lateinit var blogPreferences: BlogPreferences
+    // Lazy example. Lazy properties are initialized on the first usage (here, it's in the onCreate method)
+    private val blogPreferences: BlogPreferences by lazy { BlogPreferences(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // bypass Login Activity if the user is logged-in.
+        if (blogPreferences.isLoggedIn()) {
+            startMainActivity()
+            return
+        }
+
         setContentView(R.layout.activity_login)
 
         loginButton.setOnClickListener { onLoginClicked() }
@@ -22,6 +35,8 @@ class LoginActivity : AppCompatActivity() {
         textUsernameLayout.editText?.addTextChangedListener { onTextChanged(textUsernameLayout) }
         passwordInput.addTextChangedListener{ onTextChanged(textPasswordLayout) }
     }
+
+
 
     private fun onTextChanged(inputLayout: TextInputLayout) {
         if (inputLayout.editText?.text?.isEmpty() != true)
@@ -48,19 +63,20 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun performLogin() {
+        blogPreferences.setLoginState(true)
+
         textUsernameLayout.isEnabled = false
         textPasswordLayout.isEnabled = false
         loginButton.visibility = View.INVISIBLE
         loadingProgress.visibility = View.VISIBLE
 
-        Handler().postDelayed({
-            startMainActivity()
-            finish() }, 2000)
+        Handler(mainLooper).postDelayed({ startMainActivity() }, 2000)
     }
 
     private fun startMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
     private fun onWrongCredentials() {
